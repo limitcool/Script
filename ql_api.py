@@ -56,14 +56,14 @@ def post_envs(name: str, value: str, remarks: str = None) -> list:
 
 
 # 修改环境变量
-def put_envs(_id: str, name: str, value: str, remarks: str = None) -> bool:
+def put_envs(id: str, name: str, value: str, remarks: str = None) -> bool:
     params = {
         't': int(time.time() * 1000)
     }
     data = {
         'name': name,
         'value': value,
-        '_id': _id
+        'id': id
     }
     if remarks is not None:
         data['remarks'] = remarks
@@ -75,11 +75,11 @@ def put_envs(_id: str, name: str, value: str, remarks: str = None) -> bool:
 
 
 # 禁用环境变量
-def disable_env(_id: str) -> bool:
+def disable_env(id: str) -> bool:
     params = {
         't': int(time.time() * 1000)
     }
-    data = [_id]
+    data = [id]
     res = requests.put(ql_url + '/api/envs/disable', headers=__get__headers(), params=params, json=data)
     j_data = res.json()
     if j_data['code'] == 200:
@@ -88,11 +88,11 @@ def disable_env(_id: str) -> bool:
 
 
 # 启用环境变量
-def enable_env(_id: str) -> bool:
+def enable_env(id: str) -> bool:
     params = {
         't': int(time.time() * 1000)
     }
-    data = [_id]
+    data = [id]
     res = requests.put(ql_url + '/api/envs/enable', headers=__get__headers(), params=params, json=data)
     j_data = res.json()
     if j_data['code'] == 200:
